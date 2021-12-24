@@ -16,6 +16,9 @@ assignees: ''
 ### 関連タスク
 - #なし
 
+### Issueテンプレートバージョン
+- 2021/12/24(https://github.com/shimajima-eiji/Projects/commit/8d461689ce9d8481206a5ec6ff3b64dea8514562)
+
 ---
 
 ## 備考
