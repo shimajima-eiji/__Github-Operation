@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 ### プロジェクト
-- #プロジェクト([ユーザープロジェクト](https://github.com/shimajima-eiji?tab=projects&type=beta))
+- #プロジェクト
 
 ### 前提タスク
 - #なし
