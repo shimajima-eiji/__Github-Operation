@@ -1,5 +1,5 @@
 ---
-name: project
+name: プロジェクト
 about: リポジトリ内で関連プロジェクトを管理するために必須
 title: "[Project][プロジェクト名]"
 labels: 大分類
@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 ### プロジェクト
-#プロジェクト([ユーザープロジェクト](https://github.com/shimajima-eiji?tab=projects&type=beta))
+#大分類 or [ユーザープロジェクト](https://github.com/shimajima-eiji?tab=projects&type=beta)
 
 以下を設定すること
 
@@ -18,6 +18,11 @@ assignees: ''
 ---
 
 ### 注記
-- ユーザープロジェクトへのリンクはBetaに対応していないため、上記手打ちする
-- テンプレートを差し替えたい場合は
-  - https://github.com/shimajima-eiji/Projects/issues/templates/edit
+-　マイルストーンを作成する（よく忘れる）
+  -　`[プロジェクト名]期日`
+-　リポジトリプロジェクト or ユーザープロジェクトは予め作成しておく
+-　カラムは以下の通り作成する
+  -　検討
+  -　完了
+  -　保留
+  -　プロジェクト
