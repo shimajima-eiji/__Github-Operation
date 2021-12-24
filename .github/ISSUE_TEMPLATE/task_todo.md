@@ -1,5 +1,5 @@
 ---
-name: タスク:汎用
+name: タスク:Todo
 about: タスクのネストをする事はできないので設定に注意
 title: "[Project][Todo]タスク概要"
 labels: ''
