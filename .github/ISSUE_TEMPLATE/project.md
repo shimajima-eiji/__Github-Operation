@@ -11,7 +11,7 @@ assignees: ''
 #別の大分類 or [ユーザープロジェクト](https://github.com/shimajima-eiji?tab=projects&type=beta)
 
 ### Issueテンプレートバージョン
-- 2021/12/25()
+- 2021/12/25(https://github.com/shimajima-eiji/Projects/commit/801d6fd84d66e3493d323c3eda276781a87e4ada)
 
 ---
 
