@@ -1,14 +1,14 @@
 ---
-name: タスク:Todo
+name: タスク:Wiki
 about: タスクのネストをする事はできないので設定に注意
-title: "[Project][Todo]タスク概要"
+title: "[Project][Wiki]タスク概要"
 labels: ''
 assignees: ''
 
 ---
 
 ### プロジェクト
-- #15
+- #46
 
 ### 前提タスク
 - #なし
