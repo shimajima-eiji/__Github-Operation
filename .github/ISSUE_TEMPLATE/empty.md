@@ -1,5 +1,5 @@
 ---
-name: empty
+name: デフォルト
 about: 空のテンプレート
 title: ''
 labels: ''
