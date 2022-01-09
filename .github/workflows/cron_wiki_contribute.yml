@@ -1,0 +1,21 @@
+name: Wiki_Contribute
+on:
+  schedule:
+    - cron:  '0 1 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: git setting
+        run: |
+          git config --global user.email "${{ secrets.EMAIL }}"
+          git config --global user.name "shimajima-eiji"
+          
+      # commitに失敗した場合は、wikiを更新しなかった可能性が高い
+      - name: Commit files
+        run: |
+          git push --mirror https://github.com/shimajima-eiji/____Github-Operation_wiki.git
