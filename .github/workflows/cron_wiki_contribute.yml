@@ -38,4 +38,4 @@ jobs:
       # commitに失敗した場合は、wikiを更新しなかった可能性が高い
       - name: コントリビューションリポジトリへpush
         run: |
-          git push --mirror git@github.com:shimajima-eiji/____Github-Operation_wiki.git
+          git push --mirror -f git@github.com:shimajima-eiji/____Github-Operation_wiki.git
