@@ -1,7 +1,9 @@
 name: Wiki_Contribute
 on:
   push: 
-    branches: [ main ]
+    branches:
+      - main
+      - shimajima-eiji-patch-1
   schedule:
     - cron:  '0 1 * * *'
 
