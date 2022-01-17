@@ -25,6 +25,6 @@ jobs:
       # commitに失敗した場合は、wikiを更新しなかった可能性が高い
       - name: Commit files
         run: |
-          git push --mirror https://shimajima-eiji:${GITHUB_TOKEN}@github.com/shimajima-eiji/____Github-Operation_wiki.git
+          git push --mirror https://shimajima-eiji:${PERSONAL_ACCESS_TOKEN}@github.com/shimajima-eiji/____Github-Operation_wiki.git
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
