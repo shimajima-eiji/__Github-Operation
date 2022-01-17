@@ -11,8 +11,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: WikiリポジトリをClone
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git clone https://shimajima-eiji:${GITHUB_TOKEN}@github.com/shimajima-eiji/__Github-Operation.wiki
 
-      - name: git setting
+      - name: pushのためのconfig
         run: |
           git config --global user.email "${{ secrets.EMAIL }}"
           git config --global user.name "shimajima-eiji"
@@ -20,6 +25,6 @@ jobs:
       # commitに失敗した場合は、wikiを更新しなかった可能性が高い
       - name: Commit files
         run: |
-          git push --mirror -f https://shimajima-eiji:$REPO_KEY@github.com/shimajima-eiji/____Github-Operation_wiki.git $GITHUB_REF
+          git push --mirror https://shimajima-eiji:${GITHUB_TOKEN}@github.com/shimajima-eiji/____Github-Operation_wiki.git
         env:
-          REPO_KEY: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
