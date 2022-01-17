@@ -19,6 +19,13 @@ jobs:
         run: |
           git clone https://github.com/shimajima-eiji/__Github-Operation.wiki.git
 
+      - name: SSH認証のための環境構築
+        run: |
+          mkdir ~/.ssh
+          chmod 700 ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa  
+        
       - name: デバッグ
         run: |
           ls -la
