@@ -13,26 +13,16 @@ assignees: ''
 ### 前提タスク
 - #なし
 
-### 関連タスク
+### 関連タスク・リポジトリ
+-  [リポジトリ名](https://github.com/shimajima-eiji/)
 - #なし
 
 ### Issueテンプレートバージョン
-- 2021/12/24(https://github.com/shimajima-eiji/Projects/commit/0e009fce8b327651a30b32b5b5dd2d79b20a351d)
+2022/01/18 (https://github.com/shimajima-eiji/__Github-Operation/commit/8ac5330403fb95f81194adba6d453f9621a562fa)
 
 ---
 
 ## なぜやるのか
-必須
 
-### 現状
-任意
 
-### 解決案、または影響があるファイル
-任意
-
-### 備考
-以下を設定すること
-
-- プロジェクト
-
-着手したらアサインを入れること
+## やること
