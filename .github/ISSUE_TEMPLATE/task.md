@@ -18,7 +18,7 @@ assignees: ''
 - #なし
 
 ### Issueテンプレートバージョン
-2022/01/18 ()
+2022/01/18 (https://github.com/shimajima-eiji/__Github-Operation/commit/8ac5330403fb95f81194adba6d453f9621a562fa)
 
 ---
 
