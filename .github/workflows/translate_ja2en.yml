@@ -1,0 +1,54 @@
+name: テキストファイルを英訳する
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: 環境構築
+        run: |
+          sudo apt install python3 pip curl
+          pip install requests pathlib git+https://github.com/alainrouillon/py-googletrans@feature/enhance-use-of-direct-api googletrans==4.0.0-rc1
+
+      - name: pyファイルをダウンロード
+        run: |
+          curl -sf https://raw.githubusercontent.com/shimajima-eiji/__Operation-Maintenance/main/translate/translate_path.py >run.py 
+          echo "[exist check] run.py"
+          ls
+          echo
+          
+      - name: 翻訳
+        run: |
+          python3 run.py "https://script.google.com/macros/s/${{ secrets.GASID }}/exec" "$(pwd)"
+          echo "[exist check] _en.file"
+          ls
+          echo
+
+      - name: ダウンロードしたファイルを削除
+        run: |
+          rm run.py
+          echo "[remove check] run.py"
+          ls
+          echo
+
+      - name: push
+        run: |
+          # 更新がない場合は処理しない
+          if [ -z "$(git status -s)" ]
+          then
+            echo "[Skip] no Changed"
+            
+          else
+            git config --global user.email "${{ secrets.EMAIL }}"
+            git config --global user.name "shimajima-eiji"
+            git add -A
+            git commit -m "Created _en.md from .(txt or md) by Github Actions"
+            git pull
+            git push
+            echo "[COMPLETED] Created _en.md"
+          fi
