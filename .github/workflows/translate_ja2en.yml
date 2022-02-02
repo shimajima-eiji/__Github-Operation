@@ -44,11 +44,10 @@ jobs:
             echo "[Skip] no Changed"
             
           else
-            git config --global user.email "${{ secrets.EMAIL }}"
             git config --global user.name "shimajima-eiji"
+            git config --global user.email "${{ secrets.EMAIL }}"
             git add -A
             git commit -m "Created _en.md from .(txt or md) by Github Actions"
-            git pull
             git push
             echo "[COMPLETED] Created _en.md"
           fi
