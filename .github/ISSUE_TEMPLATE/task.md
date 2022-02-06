@@ -15,7 +15,7 @@ assignees: shimajima-eiji
 -  [リポジトリ名](https://github.com/shimajima-eiji/) https://github.com/shimajima-eiji?tab=repositories
 
 ### Issueテンプレートバージョン
-2022/01/18 (https://github.com/shimajima-eiji/__Github-Operation/commit/8ac5330403fb95f81194adba6d453f9621a562fa)
+2022/02/06 (https://github.com/shimajima-eiji/__Github-Operation/commit/31ab6018cb977f02dad4c8bbcdb80abe605dccad)
 
 ---
 
