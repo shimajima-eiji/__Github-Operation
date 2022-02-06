@@ -1,28 +1,29 @@
 ---
 name: タスク:Github運用
 about: タスクのネストをする事はできないので設定に注意
-title: "[Project][Github運用]タスク概要"
-labels: ''
-assignees: ''
+title: ''
+labels: プロジェクト:運用(保守), プロジェクト:運用(管理), マイルストン:今すぐ, リポジトリ:Projects
+assignees: shimajima-eiji
 
 ---
 
-### プロジェクト
+### プロジェクトのIssueID
 - #1
 
-### 前提タスク
+### 関連情報(Issue/ディスカッション, リポジトリURL)
 - #なし
-
-### 関連タスク・リポジトリ
--  [リポジトリ名](https://github.com/shimajima-eiji/)
-- #なし
+-  [リポジトリ名](https://github.com/shimajima-eiji/) https://github.com/shimajima-eiji?tab=repositories)
 
 ### Issueテンプレートバージョン
-2022/01/18 (https://github.com/shimajima-eiji/__Github-Operation/commit/8ac5330403fb95f81194adba6d453f9621a562fa)
+2022/02/06 (https://github.com/shimajima-eiji/__Github-Operation/commit/31ab6018cb977f02dad4c8bbcdb80abe605dccad)
 
 ---
 
 ## なぜやるのか
 
 
-## やること
+## やること・やったこと
+
+
+## 変更点(プルリクID)
+- #
