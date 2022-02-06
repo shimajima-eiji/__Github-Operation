@@ -34,4 +34,4 @@ assignees: shimajima-eiji
 ---
 
 ### Issueテンプレートバージョン
-- 2021/12/25(https://github.com/shimajima-eiji/Projects/commit/801d6fd84d66e3493d323c3eda276781a87e4ada)
+- 2022/02/6(https://github.com/shimajima-eiji/__Github-Operation/commit/b9862f8c41081cf418b940e4c2f30efb95a8e8ac)
