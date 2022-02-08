@@ -25,6 +25,6 @@
 ---
 
 ## チケットバージョン
-https://github.com/shimajima-eiji/__Github-Operation/commit/db5c6f7b9e3a7362e481099949827aec94058b5c
+https://github.com/shimajima-eiji/__Github-Operation/commit/ae39c3bc7b38e3d769a5cd58a4616f7a1afc2323
 
 ---
