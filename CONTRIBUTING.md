@@ -47,3 +47,9 @@ https://github.com/shimajima-eiji
 翻訳した内容が正しいかどうかを精査してもらうのが最も簡単なコントリビューションだと思います。
 
 他の言語に翻訳することもできるので、英語以外（中国語とかロシア語とかスペイン語かなぁ）の雛形も用意すべきかと悩んでいます。
+
+
+---
+## CONTRIBUTING.md バージョン
+https://github.com/shimajima-eiji/__Github-Operation/commit/635430edf771fb0a44c65a07f5a2ce44258df0ae
+---
