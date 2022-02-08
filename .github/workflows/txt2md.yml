@@ -1,0 +1,36 @@
+# README.mdを編集する際に、Webエディタを使うとdiffが使えないのがむしゃくしゃしてやった。後悔はしていない。
+name: README.txtをREADME.mdに変換
+on:
+  push:
+    branches: [ master_dummy ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2  # git clone (this)
+      - name: copy txt -> md
+        run: |
+          # 前回の更新でREADME.txtを変更していた場合に実施。削除時は動かないようにgrepでフィルタしている
+          # 奇しくも、READMEには A, M, Dのすべてが揃ってしまっているので、行頭を完全一致にする必要があった。
+          # 今回は頑張ってワンライナーにしたが、変数が使えるので、そちらでも良い
+          if [ "$(git log -1 --oneline --name-status | grep -e '^A' -e '^M' | grep 'README.txt')"  ]
+          then
+            cp README.txt README.md
+          fi
+      - name: push
+        run: |
+          # txtを更新した結果、mdファイルと同じ内容だった(README.mdの更新がない)場合は処理しない
+          if [ -z "$(git status -s)" ]
+          then
+            echo "[Skip] no Changed README.md"
+            
+          else
+            git config --global user.email "${{ secrets.EMAIL }}"
+            git config --global user.name "shimajima-eiji"
+            git add -A
+            git commit -m "Mirror root README　txt to md by Github Actions"
+            git pull
+            git push
+            echo "[COMPLETED] Mirror README"
+          fi
