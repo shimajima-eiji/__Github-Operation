@@ -2,7 +2,7 @@
 name: README.txtをREADME.mdに変換
 on:
   push:
-    branches: [ master_dummy ]
+    branches: [ main ]
 
 jobs:
   build:
