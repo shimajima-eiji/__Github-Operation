@@ -64,5 +64,5 @@ jobs:
           BRANCH: ${{ steps.commit.outputs.BRANCH }}
           MESSAGE: ${{ steps.commit.outputs.MESSAGE }}
         run: |
-          hub pull-request -f -m "${MESSAGE}" -h ${BRANCH} -a ${REVIEWER} -r ${REVIEWER}
+          hub pull-request -f -m "${MESSAGE}" -h ${BRANCH} -b main -a ${REVIEWER} -r ${REVIEWER}
           echo "[COMPLETED] Success create pull-request"
