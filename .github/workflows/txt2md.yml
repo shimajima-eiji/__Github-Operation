@@ -41,7 +41,6 @@ jobs:
           BRANCH: avoid_protect
           MESSAGE: Mirror root README txt to md by Github Actions
           OWNER: shimajima-eiji
-          EMAIL: ${{ secrets.EMAIL }}
         run: |
           # ブランチ名は日付を追加して競合を回避する
           BRANCH="${BRANCH}_$(TZ=JST-9 date '+%Y%m%d_%H%M%S')"
@@ -51,7 +50,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git add -A
           git commit -m "${MESSAGE}"
-          git push -u origin master:${BRANCH}
+          git push -u origin main:${BRANCH}
           echo "[COMPLETED] Success ${BRANCH} push"
           # 次のステップに変数を引き継ぐ
           echo "::set-output name=OWNER::${OWNER}"
