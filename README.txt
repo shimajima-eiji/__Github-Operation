@@ -10,9 +10,12 @@ IssueやGithub Action、Wikiがリポジトリ間で混在することを防ぐ�
 
 ## できないこと
 - Project作成
-- PR
-- Githubに影響しない開発行為
+- (※1)PR
+- (※1)Githubに影響しない開発行為
 - Github転職プロジェクトの活動
+
+### 注釈
+(※1): 開発は https://github.com/shimajima-eiji/__Develop_for_Github をメインにして、移行テストにこのリポジトリでテストしている
 
 ## GithubActionsについて
 このリポジトリで運用することを想定していないが、どこに行ったか分からなくなるファイルを配置している。  
