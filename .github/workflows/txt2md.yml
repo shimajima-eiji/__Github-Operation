@@ -38,31 +38,34 @@ jobs:
         id: commit
         if: steps.check_files.outcome == 'success'
         env: 
-          BRANCH: avoid_protect
+          BASE_BRANCH: main
+          HEAD_BRANCH: avoid_protect
           MESSAGE: Mirror root README txt to md by Github Actions
           OWNER: shimajima-eiji
         run: |
           # ブランチ名は日付を追加して競合を回避する
-          BRANCH="${BRANCH}_$(TZ=JST-9 date '+%Y%m%d_%H%M%S')"
+          BRANCH="${HEAD_BRANCH}_$(TZ=JST-9 date '+%Y%m%d_%H%M%S')"
           
           # Ref: https://scrapbox.io/nwtgck/GitHub_Actions%E3%81%AE%E3%83%9C%E3%83%83%E3%83%88%E3%81%8C%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%97%E3%81%9F%E3%82%88%E3%81%86%E3%81%AB%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B3%E3%82%92%E3%81%A4%E3%81%91%E3%82%8B%E3%81%AB%E3%81%AF%E3%83%A1%E3%83%BC%E3%83%AB%E3%81%AB%E3%80%8Cgithub-actions%5Bbot%5D@users.noreply.github.com%E3%80%8D%E3%82%92%E6%8C%87%E5%AE%9A%E3%81%99%E3%82%8C%E3%81%B0%E8%89%AF%E3%81%84
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
           git add -A
           git commit -m "${MESSAGE}"
-          git push -u origin main:${BRANCH}
-          echo "[COMPLETED] Success ${BRANCH} push"
+          git push -u origin ${BASE_BRANCH}:${HEAD_BRANCH}
+          echo "[COMPLETED] Success ${HEAD_BRANCH} push"
           # 次のステップに変数を引き継ぐ
           echo "::set-output name=OWNER::${OWNER}"
-          echo "::set-output name=BRANCH::${BRANCH}"
+          echo "::set-output name=BASE_BRANCH::${BASE_BRANCH}"
+          echo "::set-output name=HEAD_BRANCH::${HEAD_BRANCH}"
           echo "::set-output name=MESSAGE::${MESSAGE}"
       - name: プルリク作成
         if: steps.commit.conclusion == 'success'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # hubコマンドの実行にパスワードが必要
           REVIEWER: shimajima-eiji
-          BRANCH: ${{ steps.commit.outputs.BRANCH }}
+          BASE_BRANCH: ${{ steps.commit.outputs.BASE_BRANCH }}
+          HEAD_BRANCH: ${{ steps.commit.outputs.HEAD_BRANCH }}
           MESSAGE: ${{ steps.commit.outputs.MESSAGE }}
         run: |
-          hub pull-request -f -m "${MESSAGE}" -h ${BRANCH} -b main -a ${REVIEWER} -r ${REVIEWER}
+          hub pull-request -f -m "${MESSAGE}" -h ${HEAD_BRANCH} -b ${BASE_BRANCH} -a ${REVIEWER} -r ${REVIEWER}
           echo "[COMPLETED] Success create pull-request"
