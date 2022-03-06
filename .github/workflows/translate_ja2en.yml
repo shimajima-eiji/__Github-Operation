@@ -1,3 +1,7 @@
+# ポイントは`hub pull-request -f -m "${MESSAGE}" -h ${BRANCH_HEAD} -b ${BRANCH_BASE} -a ${REVIEWER} -r ${REVIEWER}`
+# ブランチ名に日付を入れたのは、push時にブランチが残っているとエラーになるので必ず新しいブランチを生成させるため
+# pushするユーザーはGAを指定しないと、レビュアーに反映されない（自分をレビュアーにできない）
+
 name: テキストファイルを英訳する
 on:
   push:
@@ -12,42 +16,64 @@ jobs:
 
       - name: 環境構築
         run: |
-          sudo apt install python3 pip curl
-          pip install requests pathlib git+https://github.com/alainrouillon/py-googletrans@feature/enhance-use-of-direct-api googletrans==4.0.0-rc1
-
-      - name: pyファイルをダウンロード
-        run: |
-          curl -sf https://raw.githubusercontent.com/shimajima-eiji/__Operation-Maintenance/main/translate/translate_path.py >run.py 
-          echo "[exist check] run.py"
-          ls
-          echo
-          
+          sudo apt install python3 pip
+          pip install pathlib requests
+      
       - name: 翻訳
         run: |
-          python3 run.py "https://script.google.com/macros/s/${{ secrets.GASID }}/exec" "$(pwd)"
-          echo "[exist check] _en.file"
-          ls
-          echo
+          curl -sf https://raw.githubusercontent.com/shimajima-eiji/__Operation-Maintenance/main/translate/translate_path.py | python3
 
-      - name: ダウンロードしたファイルを削除
-        run: |
-          rm run.py
-          echo "[remove check] run.py"
-          ls
-          echo
 
-      - name: push
+      - name: 更新状態を確認
+        id: check_files
+        # 実行結果としてはエラーではないので、continue-on-errorでパスさせる
+        # Ref: https://qiita.com/ljourm/items/556f5ccc8425891865de
+        continue-on-error: true
         run: |
-          # 更新がない場合は処理しない
-          if [ -z "$(git status -s)" ]
+          if [ "$(git status -s)" ]
           then
-            echo "[Skip] no Changed"
+            echo "[Run] ファイルの変更を検出したため、処理を継続"
             
           else
-            git config --global user.name "shimajima-eiji"
-            git config --global user.email "${{ secrets.EMAIL }}"
-            git add -A
-            git commit -m "Created _en.md from .(txt or md) by Github Actions"
-            git push
-            echo "[COMPLETED] Created _en.md"
+            echo "[Skip] ファイルの変更がないため、処理を中断"
+            exit 1  # 本来はここで終了してしまうが、見た目上エラーにしたくないのでcontinue-on-errorを設定している
           fi
+          
+      - name: コミット
+        id: commit
+        if: steps.check_files.outcome == 'success'
+        env: 
+          BRANCH_BASE: main
+          BRANCH_HEAD: avoid_protect
+          MESSAGE: Converted image -> webp by Github Actions
+          OWNER: shimajima-eiji
+          EMAIL: ${{ secrets.EMAIL }}
+        run: |
+          # ブランチ名は日付を追加して競合を回避する
+          BRANCH_HEAD="${BRANCH_HEAD}_$(TZ=JST-9 date '+%Y%m%d_%H%M%S')"
+          
+          # Ref: https://scrapbox.io/nwtgck/GitHub_Actions%E3%81%AE%E3%83%9C%E3%83%83%E3%83%88%E3%81%8C%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E3%81%97%E3%81%9F%E3%82%88%E3%81%86%E3%81%AB%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B3%E3%82%92%E3%81%A4%E3%81%91%E3%82%8B%E3%81%AB%E3%81%AF%E3%83%A1%E3%83%BC%E3%83%AB%E3%81%AB%E3%80%8Cgithub-actions%5Bbot%5D@users.noreply.github.com%E3%80%8D%E3%82%92%E6%8C%87%E5%AE%9A%E3%81%99%E3%82%8C%E3%81%B0%E8%89%AF%E3%81%84
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add -A
+          git commit -m "${MESSAGE}"
+          git push -u origin ${BRANCH_BASE}:${BRANCH_HEAD}
+          echo "[COMPLETED] Success ${BRANCH_HEAD} push"
+
+          # 次のステップに変数を引き継ぐ
+          echo "::set-output name=OWNER::${OWNER}"
+          echo "::set-output name=BRANCH_BASE::${BRANCH_BASE}"
+          echo "::set-output name=BRANCH_HEAD::${BRANCH_HEAD}"
+          echo "::set-output name=MESSAGE::${MESSAGE}"
+
+      - name: プルリク作成
+        if: steps.commit.conclusion == 'success'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # hubコマンドの実行にパスワードが必要
+          REVIEWER: shimajima-eiji
+          BRANCH_BASE: ${{ steps.commit.outputs.BRANCH_BASE }}
+          BRANCH_HEAD: ${{ steps.commit.outputs.BRANCH_HEAD }}
+          MESSAGE: ${{ steps.commit.outputs.MESSAGE }}
+        run: |
+          hub pull-request -f -m "${MESSAGE}" -h ${BRANCH_HEAD} -b ${BRANCH_BASE} -a ${REVIEWER} -r ${REVIEWER}
+          echo "[COMPLETED] Success create pull-request"
