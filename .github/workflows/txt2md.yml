@@ -42,9 +42,8 @@ jobs:
         env: 
           BRANCH_BASE: main
           BRANCH_HEAD: avoid_protect
-          MESSAGE: Converted image -> webp by Github Actions
+          MESSAGE: Mirror root README txt to md by Github Actions
           OWNER: shimajima-eiji
-          EMAIL: ${{ secrets.EMAIL }}
         run: |
           # ブランチ名は日付を追加して競合を回避する
           BRANCH_HEAD="${BRANCH_HEAD}_$(TZ=JST-9 date '+%Y%m%d_%H%M%S')"
