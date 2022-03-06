@@ -38,7 +38,7 @@ jobs:
         env: 
           BRANCH_BASE: main
           BRANCH_HEAD: avoid_protect
-          MESSAGE: Converted image -> webp by Github Actions
+          MESSAGE: Created README.md from README.gs by Github Actions
           OWNER: shimajima-eiji
           EMAIL: ${{ secrets.EMAIL }}
         run: |
