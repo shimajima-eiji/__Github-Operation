@@ -1,0 +1,64 @@
+name: 指定したリポジトリのCHANGELOGを作成する
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: git clone
+        uses: actions/checkout@v2
+
+      # ここで何かしらの処理をする
+      - name: github-changesをインストール
+        run: |
+          npm install -g github-changes
+
+      - name: ログファイルを生成
+        continue-on-error: true
+        env:
+          OWNER: "shimajima-eiji"
+          MAIN_REPOSITORIES: "${{ secrets.MAIN_REPOSITORY }}"
+          MASTER_REPOSITORIES: "${{ secrets.MASTER_REPOSITORY }}"
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          TITLE: "タグ別"
+          TIMEZONE: "Asia/Tokyo"
+          MESSAGE: "YYYY年M月D日"
+          TAG_NAME: "最終更新"
+        run: |
+          mkdir -p CHANGELOG
+          echo "## リポジトリ一覧" >CHANGELOG/README.md
+          
+          for REPOSITORY in ${MAIN_REPOSITORIES}
+          do
+            if [ "${REPOSITORY}" = "README" ]
+            then
+              continue
+            fi
+            
+            echo "- [${REPOSITORY}](https://github.com/${OWNER}/${REPOSITORY})" >>CHANGELOG/README.md
+            echo "  - [CHANGELOG](https://github.com/${OWNER}/$(basename $(git rev-parse --show-toplevel))/blob/main/CHANGELOG/${REPOSITORY}.md)" >>CHANGELOG/README.md
+            github-changes -o "${OWNER}" -r "${REPOSITORY}" -k "${GITHUB_TOKEN}" -b "main" --use-commit-body -t "${TITLE}" -z "${TIMEZONE}" -m "${MESSAGE}" -n "${TAG_NAME}" -a -f "CHANGELOG/${REPOSITORY}.md"
+          done
+
+          for REPOSITORY in ${MASTER_REPOSITORIES}
+          do
+            if [ "${REPOSITORY}" = "README" ]
+            then
+              continue
+            fi
+            
+            echo "- [${REPOSITORY}](https://github.com/${OWNER}/${REPOSITORY})" >>CHANGELOG/README.md
+            echo "  - [CHANGELOG](https://github.com/${OWNER}/$(basename $(git rev-parse --show-toplevel))/blob/main/CHANGELOG/${REPOSITORY}.md)" >>CHANGELOG/README.md
+            github-changes -o "${OWNER}" -r "${REPOSITORY}" -k "${GITHUB_TOKEN}" -b "master" --use-commit-body -t "${TITLE}" -z "${TIMEZONE}" -m "${MESSAGE}" -n "${TAG_NAME}" -a -f "CHANGELOG/${REPOSITORY}.md"
+          done
+          # ここまでに、何かしらの処理をする
+
+      - name: git push
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: shimajima-eiji
+          author_email: ${{secrets.EMAIL}}
+          message: "Create CHANGELOG.md"
