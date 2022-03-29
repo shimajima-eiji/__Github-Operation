@@ -1,0 +1,27 @@
+name: 3Dグラフ生成
+
+on:
+  schedule: # 03:00 JST == 18:00 UTC
+    - cron: "0 18 * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: profile-3d-contrib
+    steps:
+      - name: 更新のため、クローン
+        uses: actions/checkout@v2
+
+      - name: 3Dグラフ生成
+        uses: yoshi389111/github-profile-3d-contrib@0.6.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USERNAME: ${{ github.repository_owner }}
+
+      - name: 更新のため、チェック
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: ${{ github.repository_owner }}
+          author_email: ${{secrets.EMAIL}}
+          message: "Create github-profile-3d-contrib by Github Actions"
