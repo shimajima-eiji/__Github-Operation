@@ -60,4 +60,16 @@ jobs:
         with:
           author_name: shimajima-eiji
           author_email: ${{secrets.EMAIL}}
-          message: "Create CHANGELOG.md"
+          message: "Create CHANGELOG.md by Github Actions"
+          new_branch: changelog
+
+      - name: プルリク作成
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # hubコマンドの実行にパスワードが必要
+          REVIEWER_OWNER: ${{ github.repository_owner }}
+          BRANCH_BASE: main
+          BRANCH_HEAD: changelog
+          MESSAGE: "Create CHANGELOG.md by Github Actions"
+        run: |
+          hub pull-request -f -m "${MESSAGE}" -h ${BRANCH_HEAD} -b ${BRANCH_BASE} -a ${REVIEWER_OWNER} -r ${REVIEWER_OWNER}
+          echo "[COMPLETED] Success create pull-request"
