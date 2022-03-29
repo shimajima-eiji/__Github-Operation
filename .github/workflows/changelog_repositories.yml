@@ -1,8 +1,7 @@
 name: 指定したリポジトリのCHANGELOGを作成する
 on:
-  schedule: # 03:00 JST == 18:00 UTC
-    - cron: "0 19 * * *"
   workflow_dispatch:
+  # https://github.com/shimajima-eiji/__Github-Operation/actions/workflows/changelog_repositories.yml
 
 jobs:
   changelog:
