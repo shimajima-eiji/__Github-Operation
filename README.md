@@ -1,7 +1,4 @@
 # Github Operation
-- [トップページ](https://shimajima-eiji.github.io/__Github-Operation)
-- [Github](https://github.com/shimajima-eiji/__Github-Operation)
-
 ## 目的
 IssueやGithub Action、Wikiがリポジトリ間で混在することを防ぐためのリポジトリ。  
 リポジトリを横断して管理する事を目的とする。
