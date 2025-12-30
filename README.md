@@ -7,6 +7,7 @@ IssueやGithub Action、Wikiがリポジトリ間で混在することを防ぐ�
 - Github Actions設定
 - Issue
 - Wiki
+- 記事投稿自動化 ([article-posting](article-posting)) - Qiita/note.com への記事自動投稿
 
 ## できないこと
 - Project作成

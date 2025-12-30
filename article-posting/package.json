@@ -1,0 +1,25 @@
+{
+  "name": "article-posting-bot",
+  "version": "0.1.0",
+  "description": "記事投稿Bot - Qiita/note.comへの記事投稿を自動化",
+  "main": "index.js",
+  "scripts": {
+    "login": "clasp login",
+    "create": "clasp create",
+    "push": "clasp push",
+    "pull": "clasp pull",
+    "open": "clasp open"
+  },
+  "keywords": [
+    "qiita",
+    "note",
+    "automation",
+    "article",
+    "posting"
+  ],
+  "author": "nomuraya",
+  "license": "MIT",
+  "devDependencies": {
+    "@google/clasp": "^2.4.2"
+  }
+}
